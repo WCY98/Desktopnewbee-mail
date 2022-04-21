@@ -9,7 +9,7 @@ import ltd.newbee.mall.newbeemall.entity.GoodsCategory;
 
 public interface GoodsCategoryMapper {
 
-	List<GoodsCategory> findIndexConfigsByTypeAndNum(@Param("configType") int configType, @Param("number") int number);
 
-	List<GoodsCategory> selectByLevelAndParentIdsAndNumbers(@Param("configType") int configType, @Param("number") int number);
+	List<GoodsCategory> selectByLevelAndParentIdsAndNumbers(@Param("parentIds") List<Long> parentIds,
+			@Param("categoryLevel") int categoryLevel, @Param("number") int number);
 } 

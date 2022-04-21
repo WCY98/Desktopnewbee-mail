@@ -17,7 +17,6 @@ import ltd.newbee.mall.newbeemall.vo.NewBeeMallIndexCategoryVO;
 @Service
 public class NewBeeMallIndexConfigServiceImpl implements NewBeeMallIndexConfigService {
 
-
 	@Resource
     private IndexConfigMapper indexConfigMapper;
 
@@ -60,10 +59,10 @@ public class NewBeeMallIndexConfigServiceImpl implements NewBeeMallIndexConfigSe
 		
 		return voList;
 	}
-	@Override
-	public List<NewBeeMallIndexCategoryVO> getCategoriesForIndex() {
-		// TODO Auto-generated method stub
-		return null;
-
-}
+//	@Override
+//	public List<NewBeeMallIndexCategoryVO> getCategoriesForIndex() {
+//		// TODO Auto-generated method stub
+//		return null;
+//
+//}
 }

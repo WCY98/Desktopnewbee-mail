@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ltd.newbee.mall.newbeemall.service.NewBeeMallCategoryService;
 import ltd.newbee.mall.newbeemall.service.NewBeeMallIndexConfigService;
+import ltd.newbee.mall.newbeemall.service.NewBeeMallCarouselService;
 import ltd.newbee.mall.newbeemall.util.Result;
 import ltd.newbee.mall.newbeemall.util.ResultGenerator;
 
@@ -14,6 +16,12 @@ import ltd.newbee.mall.newbeemall.util.ResultGenerator;
 public class IndexController {
 	@Resource
 	private NewBeeMallIndexConfigService newBeeMallIndexConfigService;
+	
+	@Resource
+	private NewBeeMallCategoryService newBeeMallCategoryService;
+	
+	@Resource
+	private NewBeeMallCarouselService newBeeMallCarouselService;
 	
 //	@GetMapping("/newGoods")
 //    @ResponseBody
@@ -37,5 +45,28 @@ public class IndexController {
         return ResultGenerator.genSuccessResult(newBeeMallIndexConfigService.getConfigGoodsesForIndex(configType, 5));
     
 	}
+	
+	
+	@GetMapping("/Categories")
+    @ResponseBody
+    
+    public Result getCategories() {
+		
+		
+        return ResultGenerator.genSuccessResult(newBeeMallCategoryService.getCategoriesForIndex());
+    
+	}
+	
+	
+	@GetMapping("/Carousel")
+    @ResponseBody
+    
+    public Result getCarousel() {
+		
+		
+        return ResultGenerator.genSuccessResult(newBeeMallCarouselService.getCarouselsForIndex(3));
+    
+	}
+	
 }
 
