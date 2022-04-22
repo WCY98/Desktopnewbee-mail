@@ -12,7 +12,6 @@ import ltd.newbee.mall.newbeemall.entity.IndexConfig;
 import ltd.newbee.mall.newbeemall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.newbeemall.service.NewBeeMallIndexConfigService;
 import ltd.newbee.mall.newbeemall.vo.NewBeeMallGoodsVO;
-import ltd.newbee.mall.newbeemall.vo.NewBeeMallIndexCategoryVO;
 
 @Service
 public class NewBeeMallIndexConfigServiceImpl implements NewBeeMallIndexConfigService {
