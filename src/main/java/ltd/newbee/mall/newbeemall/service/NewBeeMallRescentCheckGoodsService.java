@@ -6,5 +6,5 @@ import ltd.newbee.mall.newbeemall.vo.NewBeeMallGoodsVO;
 
 public interface NewBeeMallRescentCheckGoodsService {
 	
-    List<NewBeeMallGoodsVO> getNewBeeMallRescentCheckGoodsForIndex(long userId,int limit);
+    List<NewBeeMallGoodsVO> getRescentCheckGoodsForIndex(long userId,int limit);
 }

@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ltd.newbee.mall.newbeemall.dao.RescentCheckGoodsMapper">
 
-        <select id = "getRescentCheckGoodsByUserId"
-         resultMap="ltd.newbee.mall.newbeemall.entity.RescentCheckGoods">
+        <select id = "findRescentCheckGoodsByUserId"
+         resultType="ltd.newbee.mall.newbeemall.entity.NewBeeMallGoods">
          
          select info.*
          from rescent_check_goods
-         join tb_newbee_mall_good_info as info
+         join tb_newbee_mall_goods_info as info
          on info.goods_id = rescent_check_goods.goods_id
          where user_id = #{userId}
          group by user_id, rescent_check_goods.goods_id

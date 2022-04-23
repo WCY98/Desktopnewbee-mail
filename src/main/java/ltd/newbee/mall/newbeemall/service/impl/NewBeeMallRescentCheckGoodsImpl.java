@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import ltd.newbee.mall.newbeemall.dao.RescentCheckGoodsMapper;
+import ltd.newbee.mall.newbeemall.entity.Carousel;
 import ltd.newbee.mall.newbeemall.entity.NewBeeMallGoods;
 import ltd.newbee.mall.newbeemall.service.NewBeeMallRescentCheckGoodsService;
 import ltd.newbee.mall.newbeemall.vo.NewBeeMallGoodsVO;
@@ -19,12 +20,14 @@ import ltd.newbee.mall.newbeemall.vo.NewBeeMallGoodsVO;
 		private RescentCheckGoodsMapper rescentCheckGoodsMapper;
 
 		@Override
-		public List<NewBeeMallGoodsVO> getNewBeeMallGoodsForIndex(long userId,int limit) {
+		public List<NewBeeMallGoodsVO> getRescentCheckGoodsForIndex(long userId,int limit) {
 			
 			List<NewBeeMallGoodsVO> list = new ArrayList<NewBeeMallGoodsVO>();	
 			
-			List<NewBeeMallGoods> entityList = rescentCheckGoodsMapper.getRescentCheckGoodsByUserId(userId,limit);
-					
+			List<NewBeeMallGoods> entityList = new ArrayList<NewBeeMallGoods>();
+			entityList = rescentCheckGoodsMapper.findRescentCheckGoodsByUserId(userId, 6);
+			
+			
 			if (entityList != null) {
 				for(NewBeeMallGoods newBeeMallGoods : entityList) {
 					NewBeeMallGoodsVO vo = new NewBeeMallGoodsVO();

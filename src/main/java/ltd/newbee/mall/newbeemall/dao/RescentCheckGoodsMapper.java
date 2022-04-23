@@ -8,5 +8,6 @@ import ltd.newbee.mall.newbeemall.entity.NewBeeMallGoods;
 public interface RescentCheckGoodsMapper {
 	
 
-	List<NewBeeMallGoods> getRescentCheckGoodsByUserId(long userId, int limit);
+	List<NewBeeMallGoods> findRescentCheckGoodsByUserId(long userId, int limit);
+	
 }

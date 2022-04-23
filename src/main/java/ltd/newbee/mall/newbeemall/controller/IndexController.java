@@ -11,6 +11,7 @@ import ltd.newbee.mall.newbeemall.service.NewBeeMallCarouselService;
 import ltd.newbee.mall.newbeemall.service.NewBeeMallCategoryService;
 import ltd.newbee.mall.newbeemall.service.NewBeeMallIndexConfigService;
 import ltd.newbee.mall.newbeemall.service.NewBeeMallRescentCheckGoodsService;
+import ltd.newbee.mall.newbeemall.service.RunRecommendApiHistoryService;
 import ltd.newbee.mall.newbeemall.util.Result;
 import ltd.newbee.mall.newbeemall.util.ResultGenerator;
 
@@ -106,8 +107,8 @@ public class IndexController {
 //			return ResultGenerator.genSuccessResult("successs");
 			//List<vo> = xxxService.xxxMethod();
 			//return List
-			return ResultGenerator.genSuccessResult(newBeeMallRescentCheckGoodsService.getNewBeeMallRescentCheckGoodsForIndex(userId,6));
+			return ResultGenerator.genSuccessResult(newBeeMallRescentCheckGoodsService.getRescentCheckGoodsForIndex(userId,6));
 		}
-	
+		
 	}
 }
