@@ -10,5 +10,24 @@
 	    	(#{item.userId}, #{item.runDate},#{item.categoryId})
 	 	 </foreach>
 	</insert>
+	
+	<!-- 1.不是一定要返回entity,如果是list<long>的话 可以指定long
+	2.也不是一定要有parameterType -->
+	
+	<select id = "selectRecCat" resultType = "ltd.newbee.mall.newbeemall.entity.RunRecommendApiHistory">
+	    select distinct chk.user_id,cat2.category_id
+        from tb_newbee_mall_goods_info as info1
+        join tb_newbee_mall_goods_info as info2
+        on info2.goods_category_id = info1.goods_category_id
+        join rescent_check_goods as chk
+        on chk.goods_id = info2.goods_id
+        join tb_newbee_mall_goods_category as cat2
+        on info1.goods_category_id = cat2.category_id
+        left join run_recommend_api_history as hi
+        on cat2.category_id = hi.category_id
+        
+        where hi.category_id is null
+	
+	</select>
 
 </mapper>

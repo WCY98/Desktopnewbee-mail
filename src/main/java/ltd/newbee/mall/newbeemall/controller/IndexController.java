@@ -1,17 +1,22 @@
 package ltd.newbee.mall.newbeemall.controller;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ltd.newbee.mall.newbeemall.entity.RunRecommendApiHistory;
 import ltd.newbee.mall.newbeemall.service.CheckUserExistsService;
 import ltd.newbee.mall.newbeemall.service.NewBeeMallCarouselService;
 import ltd.newbee.mall.newbeemall.service.NewBeeMallCategoryService;
 import ltd.newbee.mall.newbeemall.service.NewBeeMallIndexConfigService;
 import ltd.newbee.mall.newbeemall.service.NewBeeMallRescentCheckGoodsService;
 import ltd.newbee.mall.newbeemall.service.RunRecommendApiHistoryService;
+import ltd.newbee.mall.newbeemall.service.GoodsDetailService;
 import ltd.newbee.mall.newbeemall.util.Result;
 import ltd.newbee.mall.newbeemall.util.ResultGenerator;
 
@@ -30,7 +35,13 @@ public class IndexController {
 	private NewBeeMallRescentCheckGoodsService newBeeMallRescentCheckGoodsService ; 
 	
 	@Resource
-	private CheckUserExistsService checkUserExistsService; 
+	private CheckUserExistsService checkUserExistsService;
+	
+	@Resource
+	private RunRecommendApiHistoryService runRecommendApiHistoryService;
+	
+	@Resource
+	private GoodsDetailService goodsDetailService;
 	
 //	@GetMapping("/newGoods")
 //    @ResponseBody
@@ -111,4 +122,36 @@ public class IndexController {
 		}
 		
 	}
-}
+	
+	
+	@GetMapping("/RunRecommendApi")
+    @ResponseBody
+    
+    public Result getRunRecommendApi(){
+		
+		List<RunRecommendApiHistory> list = runRecommendApiHistoryService.selectRecCat();
+		
+		for (RunRecommendApiHistory r:list) {
+			r.setRunDate(new Date());
+		}
+		int count = runRecommendApiHistoryService.insertRunRecommendApiHistory(list);
+		
+		if (count == 0) {
+			return ResultGenerator.genFailResult("failed");
+		}else {
+			return ResultGenerator.genSuccessResult("successs");
+		}
+	}
+		
+		@GetMapping("/GoodsDetail")
+	    @ResponseBody
+	    
+	    public Result getGoodsDetail(long goodsId) {
+			
+			
+			return ResultGenerator.genSuccessResult(goodsDetailService.getGoodsDetailByGoodsId(goodsId));
+	    
+		}
+	
+	}	
+
