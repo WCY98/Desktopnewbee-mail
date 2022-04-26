@@ -19,6 +19,48 @@ public class NewBeeMallGoodsVO implements Serializable {
 	    private Integer originalPrice;
 
 	    private String goodsDetailContent;
+	    
+	    private Integer stockNum;
+	    
+	    public Integer getStockNum() {
+			return stockNum;
+		}
+
+		public void setStockNum(Integer stockNum) {
+			this.stockNum = stockNum;
+		}
+
+		public String getTag() {
+			return tag;
+		}
+
+		public void setTag(String tag) {
+			this.tag = tag;
+		}
+
+		public Byte getGoodsSellStatus() {
+			return goodsSellStatus;
+		}
+
+		public void setGoodsSellStatus(Byte goodsSellStatus) {
+			this.goodsSellStatus = goodsSellStatus;
+		}
+
+		public Integer getCreateUser() {
+			return createUser;
+		}
+
+		public void setCreateUser(Integer createUser) {
+			this.createUser = createUser;
+		}
+
+		private String tag;
+	    
+	    private Byte goodsSellStatus;
+	    
+	    private Integer createUser;
+	    
+	    
 
 	    public Long getGoodsId() {
 	        return goodsId;

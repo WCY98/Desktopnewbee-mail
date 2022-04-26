@@ -17,6 +17,7 @@ import ltd.newbee.mall.newbeemall.service.NewBeeMallIndexConfigService;
 import ltd.newbee.mall.newbeemall.service.NewBeeMallRescentCheckGoodsService;
 import ltd.newbee.mall.newbeemall.service.RunRecommendApiHistoryService;
 import ltd.newbee.mall.newbeemall.service.GoodsDetailService;
+import ltd.newbee.mall.newbeemall.service.GoodsInfoService;
 import ltd.newbee.mall.newbeemall.util.Result;
 import ltd.newbee.mall.newbeemall.util.ResultGenerator;
 
@@ -42,6 +43,12 @@ public class IndexController {
 	
 	@Resource
 	private GoodsDetailService goodsDetailService;
+	
+	@Resource
+	private GoodsDetailService goodsImageService;
+	
+	@Resource
+	private GoodsInfoService goodsInfoService;
 	
 //	@GetMapping("/newGoods")
 //    @ResponseBody
@@ -149,9 +156,22 @@ public class IndexController {
 	    public Result getGoodsDetail(long goodsId) {
 			
 			
-			return ResultGenerator.genSuccessResult(goodsDetailService.getGoodsDetailByGoodsId(goodsId));
+			return ResultGenerator.genSuccessResult(goodsDetailService.getGoodsDetail(goodsId));
 	    
 		}
+		
+		@GetMapping("/GoodsImage")
+	    @ResponseBody
+	    
+	    public Result getGoodsImage(long goodsId) {
+			
+			
+			return ResultGenerator.genSuccessResult(goodsDetailService.getGoodsImages(goodsId));
+	    
+		}
+		
+
+	
 	
 	}	
 

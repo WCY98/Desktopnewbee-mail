@@ -3,9 +3,15 @@
 <mapper 
        namespace="ltd.newbee.mall.newbeemall.dao.GoodsDetailMapper">
      
-      <select id= "findGoodsDetailByGoodsId"
+      <select id= "getGoodsDetail"
          resultType="ltd.newbee.mall.newbeemall.entity.GoodsDetail">
-         select * from newbee_mall_db.goods_detail
+         select * from goods_detail
          where goods_id = #{goodsId}
          </select>
+         
+         <select id="getGoodsImages" parameterType="long" resultType="ltd.newbee.mall.newbeemall.entity.GoodsImage">
+        SELECT * FROM goods_image 
+        where goods_id = #{goodsId}
+        order by goods_rank
+    </select>
 </mapper>
