@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ltd.newbee.mall.newbeemall.service.GoodsInfoService;
 import ltd.newbee.mall.newbeemall.service.GoodsQAService;
+import ltd.newbee.mall.newbeemall.service.GoodsReviewService;
 import ltd.newbee.mall.newbeemall.util.Result;
 import ltd.newbee.mall.newbeemall.util.ResultGenerator;
 
@@ -23,6 +24,9 @@ public class GoodsController {
 	@Resource
 	private GoodsQAService goodsQANumAndPageService;
 	
+	@Resource
+	private GoodsReviewService goodsReviewService;
+	
 	@GetMapping("/GoodsInfo")
     @ResponseBody
     
@@ -36,20 +40,16 @@ public class GoodsController {
 	@GetMapping("/GoodsQA")
     @ResponseBody
     
-    public Result getGoodsQA(int pageNo, int pageLimitNumber, long goodsId) {
+    public Result getGoodsQA(int pageNo, int pageLimitNumber, long goodsId,String orderByCol) {
 		
 		
-		return ResultGenerator.genSuccessResult(goodsQAService.getGoodsQA(pageNo,pageLimitNumber,goodsId));
+		return ResultGenerator.genSuccessResult(goodsQAService.getGoodsQA(pageNo,pageLimitNumber,goodsId,orderByCol));
     
 	}
 	
-	@GetMapping("/GoodsQANumAndPage")
+	@GetMapping("/Review")
     @ResponseBody
-    
-    public Result getGoodsQANumAndPage(int pageNo,int number,long goodsId) {
-		
-		
-		return ResultGenerator.genSuccessResult(goodsQAService.getGoodsQANumAndPage(pageNo, number, goodsId));
-    
+    public Result getReview(long goodsId) {
+		return ResultGenerator.genSuccessResult(goodsReviewService.getGoodsReview(goodsId));     
 	}
 }

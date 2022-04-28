@@ -150,6 +150,36 @@ public class GoodsQA {
         this.likeDate = likeDate;
     }
 
+	private Integer count;
+
+	private String totalCount;
+
+	private String setPageNumber;
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public String getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(String totalCount) {
+		this.totalCount = totalCount;
+	}
+
+	public String setPageNumber() {
+		return setPageNumber;
+	}
+
+	public void setPageNumber(String currentPage) {
+		this.setPageNumber = currentPage;
+	}
+
+} 
 
 
-}
