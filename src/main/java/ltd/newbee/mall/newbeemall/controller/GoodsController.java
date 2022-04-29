@@ -40,16 +40,16 @@ public class GoodsController {
 	@GetMapping("/GoodsQA")
     @ResponseBody
     
-    public Result getGoodsQA(int pageNo, int pageLimitNumber, long goodsId,String orderByCol) {
+    public Result getGoodsQA(int startOffsetIndex, int pageLimitNumber, long goodsId,String orderByCol) {
 		
 		
-		return ResultGenerator.genSuccessResult(goodsQAService.getGoodsQA(pageNo,pageLimitNumber,goodsId,orderByCol));
+		return ResultGenerator.genSuccessResult(goodsQAService.getGoodsQA(startOffsetIndex,pageLimitNumber,goodsId,orderByCol));
     
 	}
 	
-	@GetMapping("/Review")
+	@GetMapping("/GoodsReview")
     @ResponseBody
-    public Result getReview(long goodsId) {
+    public Result getGoodsReview(long goodsId) {
 		return ResultGenerator.genSuccessResult(goodsReviewService.getGoodsReview(goodsId));     
 	}
 }

@@ -133,5 +133,54 @@ public class GoodsReview {
     
     private Integer count;
     
+    private Long orderId;
+    
+    public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+
+	public Integer getProved() {
+		return proved;
+	}
+
+	public void setProved(Integer proved) {
+		this.proved = proved;
+	}
+
+	private Integer proved;
+    
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public Long getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(Long goodsId) {
+		this.goodsId = goodsId;
+	}
+
+	private Long userId;
+	
+	private Integer orderNo;
+	
+	private Long goodsId;
 
 }

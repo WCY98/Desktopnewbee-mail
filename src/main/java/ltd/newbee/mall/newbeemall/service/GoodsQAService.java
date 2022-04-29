@@ -6,6 +6,6 @@ import ltd.newbee.mall.newbeemall.vo.GoodsQAFirstVO;
 
 public interface GoodsQAService {
 	
-	List<GoodsQAFirstVO> getGoodsQA(int pageNo, int pageLimitNumber,long goodsId,String orderByCol);
+	List<GoodsQAFirstVO> getGoodsQA(int startOffsetIndex, int pageLimitNumber,long goodsId,String orderByCol);
 
 }

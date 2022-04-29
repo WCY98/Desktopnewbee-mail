@@ -15,7 +15,7 @@
          where a.goods_id = #{goodsId}
          group by qa.answer_id
          order by ${orderByCol} desc
-         limit #{pageNo} ,#{pageLimitNumber}
+         limit #{startOffsetIndex} ,#{pageLimitNumber}
          </select>
          
  

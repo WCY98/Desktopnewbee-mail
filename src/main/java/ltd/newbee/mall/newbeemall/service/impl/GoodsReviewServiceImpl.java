@@ -16,7 +16,7 @@ import ltd.newbee.mall.newbeemall.vo.GoodsReviewVO;
 public class GoodsReviewServiceImpl implements GoodsReviewService{
 
 	@Resource
-	GoodsReviewMapper  goodsReviewMapper;
+	GoodsReviewMapper goodsReviewMapper;
 	
 	@Override
 	public List<GoodsReviewVO> getGoodsReview(long goodsId) {
@@ -26,6 +26,14 @@ public class GoodsReviewServiceImpl implements GoodsReviewService{
 
 		return VoList;
 
+	}
+
+	@Override
+	public List<GoodsReview> getReviewWrittenByGoodsId(long goodsId) {
+		// TODO Auto-generated method stub
+		List<GoodsReview> entityList = goodsReviewMapper.findReviewWrittenByGoodsId(goodsId);
+		
+		return null;
 	}
 
 }

@@ -21,21 +21,23 @@ public class GoodsQAServiceImpl implements GoodsQAService{
 	GoodsQAMapper goodsQAMapper;
 
 	@Override
-	public List<GoodsQAFirstVO> getGoodsQA(int pageNo, int pageLimitNumber,long goodsId,String orderByCol) {
+	public List<GoodsQAFirstVO> getGoodsQA(int startOffsetIndex, int pageLimitNumber,long goodsId,String orderByCol) {
 		
-		int start = ((pageNo-1)*pageLimitNumber);
+		int start = ((startOffsetIndex-1)*pageLimitNumber);
 		//dao                                    
 		List<GoodsQA> entityList = goodsQAMapper.findGoodsQA(start,pageLimitNumber,goodsId,orderByCol);
 	
 		int totalCount = goodsQAMapper.findGoodsQANumAndPage(goodsId);
-		int currentPage = pageNo;
+		int currentPage = startOffsetIndex;
 		int totalPage = 0;
 		
-		if (totalCount != 0 &&totalCount % pageLimitNumber != 0) {
+		if (totalCount != 0) {
+			if(totalCount % pageLimitNumber != 0) {
 				totalPage = (totalCount / pageLimitNumber) + 1;	
-		} else if( totalCount != 0 &&totalCount % pageLimitNumber == 0){
-			totalCount = totalCount / pageLimitNumber;
+		} else {
+			totalPage = totalCount / pageLimitNumber;
 		}
+	}
 		
 		List<GoodsQAFirstVO> voList = new ArrayList<GoodsQAFirstVO>();
 		GoodsQAFirstVO vo = new GoodsQAFirstVO();

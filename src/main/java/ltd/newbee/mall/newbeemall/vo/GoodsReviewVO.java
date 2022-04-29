@@ -1,15 +1,20 @@
 package ltd.newbee.mall.newbeemall.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class GoodsReviewVO {
+public class GoodsReviewVO implements Serializable{
 
 	private String nickName;
 
-	private Long reviewId;
+	public String getNickName() {
+		return nickName;
+	}
 
-	private Integer rating; 
-	
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 	public Long getReviewId() {
 		return reviewId;
 	}
@@ -19,19 +24,11 @@ public class GoodsReviewVO {
 	}
 
 	public Integer getRating() {
-		return getRating();
+		return rating;
 	}
 
 	public void setRating(Integer rating) {
 		this.rating = rating;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
 	}
 
 	public Date getReviewDate() {
@@ -58,12 +55,44 @@ public class GoodsReviewVO {
 		this.reviewTitle = reviewTitle;
 	}
 
-	public String getReviewPhoto() {
-		return reviewPhoto;
+	public String getReviewPhoto1() {
+		return reviewPhoto1;
 	}
 
-	public void setReviewPhoto(String reviewPhoto) {
-		this.reviewPhoto = reviewPhoto;
+	public void setReviewPhoto1(String reviewPhoto1) {
+		this.reviewPhoto1 = reviewPhoto1;
+	}
+
+	public String getReviewPhoto2() {
+		return reviewPhoto2;
+	}
+
+	public void setReviewPhoto2(String reviewPhoto2) {
+		this.reviewPhoto2 = reviewPhoto2;
+	}
+
+	public String getReviewPhoto3() {
+		return reviewPhoto3;
+	}
+
+	public void setReviewPhoto3(String reviewPhoto3) {
+		this.reviewPhoto3 = reviewPhoto3;
+	}
+
+	public String getReviewPhoto4() {
+		return reviewPhoto4;
+	}
+
+	public void setReviewPhoto4(String reviewPhoto4) {
+		this.reviewPhoto4 = reviewPhoto4;
+	}
+
+	public String getReviewPhoto5() {
+		return reviewPhoto5;
+	}
+
+	public void setReviewPhoto5(String reviewPhoto5) {
+		this.reviewPhoto5 = reviewPhoto5;
 	}
 
 	public String getGoodsName() {
@@ -82,13 +111,25 @@ public class GoodsReviewVO {
 		this.count = count;
 	}
 
+	private Long reviewId;
+
+	private Integer rating; 
+	
 	private Date reviewDate;
 	
 	private String reviewContent;
 	
 	private String reviewTitle;
 	
-	private String reviewPhoto;
+	private String reviewPhoto1;
+	
+	private String reviewPhoto2;
+	
+	private String reviewPhoto3;
+	
+	private String reviewPhoto4;
+	
+	private String reviewPhoto5;
 	
     private String goodsName;
     

@@ -17,4 +17,27 @@
          group by re.review_id
          order by rating DESC
          </select>
+         
+         <select id= "findReviewWrittenByGoodsId"
+         resultType="ltd.newbee.mall.newbeemall.entity.GoodsReview">
+         select item.goods_id,item.order_id, orr.user_id
+         from tb_newbee_mall_order_item as item
+         join tb_newbee_mall_order as orr
+         on item.order_id = orr.order_id
+         left join review as re
+         on item.order_id = re.order_id
+         and item.goods_id = re.goods_id
+         where re.order_id is null 
+         and item.goods_id = #{goodsId}
+         and orr.user_id = #{userId);
+        </select>
+        
+        <select id="findReviewWritten" parameterType = "long"
+		resultType="int">
+         select count(*) count
+         from tb_newbee_mall_order_item
+         where goods_id = #{goodsId}
+         </select>
+                
+        
          </mapper>
