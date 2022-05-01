@@ -13,9 +13,9 @@
          on re.order_id = item.order_id
          join review_like as li
          on re.review_id = li.review_id
-         where item.goods_id = #{goodsId} and proved = 1
+         where item.goods_id = #{goodsId} and proved = 1 and rating = #{rating}
          group by re.review_id
-         order by rating DESC
+         order by rating DESC,count desc
          </select>
          
          <select id= "findReviewWrittenByGoodsId"
@@ -32,12 +32,33 @@
          and orr.user_id = #{userId);
         </select>
         
-        <select id="findReviewWritten" parameterType = "long"
-		resultType="int">
-         select count(*) count
-         from tb_newbee_mall_order_item
-         where goods_id = #{goodsId}
-         </select>
+        <select id="findReviewWrittenByGoodsId"
+		resultType="ltd.newbee.mall.newbeemall.entity.GoodsReview">
+		select item.order_id, item.goods_id, orr.user_id
+		from tb_newbee_mall_order_item as item
+		left join review as re
+		on re.order_id = item.order_id
+		and re.goods_id = item.goods_id
+		join tb_newbee_mall_order as orr
+		on re.order_id = item.order_id
+		where item.goods_id = #{goodsId}
+		and re.order_id is null
+		and orr.user_id=#{userId}
+		order by orr.create_time
+	</select>
+        
+        <insert id="insertGoodsReview">
+		insert into review (review_id,order_id,goods_id,nick_name,
+		rating,title,content,photo1,photo2,photo3,photo4,photo5,review_date)
+		values
+			(#{reviewId}, #{orderId}, #{goodsId}, #{nickName}
+			, #{rating}, #{title}, #{content}, #{photo1}
+			, #{photo2}, #{photo3}, #{photo4},#{photo5},#{reviewDate})
+	   </insert>
                 
+       <select id="selectMaxReviewId" resultType="long">
+		select max(review_id)
+		from review
+	</select>
         
          </mapper>
