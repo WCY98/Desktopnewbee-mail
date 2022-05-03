@@ -32,7 +32,7 @@
          and orr.user_id = #{userId);
         </select>
         
-        <select id="findReviewWrittenByGoodsId"
+        <select id="insertGoodsReview"
 		resultType="ltd.newbee.mall.newbeemall.entity.GoodsReview">
 		select item.order_id, item.goods_id, orr.user_id
 		from tb_newbee_mall_order_item as item
@@ -47,7 +47,7 @@
 		order by orr.create_time
 	</select>
         
-        <insert id="insertGoodsReview">
+        <insert id="insertGoodsReview" parameterType="map">
 		insert into review (review_id,order_id,goods_id,nick_name,
 		rating,title,content,photo1,photo2,photo3,photo4,photo5,review_date)
 		values
