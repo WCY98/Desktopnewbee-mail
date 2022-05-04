@@ -182,5 +182,37 @@ public class GoodsReview {
 	private Integer orderNo;
 	
 	private Long goodsId;
+	
+	private Integer ratingAvg;
+	
+	public Integer getRatingAvg() {
+		return ratingAvg;
+	}
+
+	public void setRatingAvg(Integer ratingAvg) {
+		this.ratingAvg = ratingAvg;
+	}
+
+	public Integer getReviewCount() {
+		return reviewCount;
+	}
+
+	public void setReviewCount(Integer reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
+	public Integer getTitleCount() {
+		return titleCount;
+	}
+
+	public void setTitleCount(Integer titleCount) {
+		this.titleCount = titleCount;
+	}
+
+	private Integer reviewCount;
+	
+	private Integer titleCount;
+	
+	
 
 }
