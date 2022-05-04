@@ -26,6 +26,36 @@
          from answer
          where goods_id = #{goodsId}
          </select>
+         
+         <!-- 插入数据 -->
+     <insert id="insertGoodsQuestion">
+		insert into questions
+		(question_id,user_id,question_date,goods_id,question_contents)
+		values
+		(#{questionId}, #{userId}, #{questionDate}, #{goodsId}, #{questionContents})
+		</insert>
+		
+		<!-- 取questionID的最大值 -->
+	 <select id="selectMaxQuestionId" resultType="long">
+		select max(question_id)
+		from questions
+	 </select>
+	 
+	 <!-- qa_like中能否插入数据（判断条件） -->
+	 <select id="insertGoodsQALikeOrNot" resultType="int">
+	   select count(*) 
+       from qa_like
+       where user_id = #{userId} and answer_id = #{anwserId}
+	    </select>
+	 
+	 
+	 <!-- qa_like中插入数据 -->
+	 <insert id="insertGoodsQALike" >
+		insert into qa_like
+		(answer_id,user_id,like_date)
+	    values
+		(#{answerId}, #{userId}, #{likeDate})
+	</insert>
                 
         
 </mapper>

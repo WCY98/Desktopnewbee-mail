@@ -33,6 +33,7 @@
 		order by orr.create_time;
 	</select>
         
+        <!-- ...1...插入 -->
         <insert id="insertGoodsReview" parameterType="map">
 		insert into review (review_id,order_id,goods_id,nick_name,
 		rating,review_title,review_content,review_photo1,review_photo2,
@@ -42,33 +43,140 @@
 			, #{rating}, #{reviewTitle}, #{reviewContent}, #{reviewPhoto1}
 			, #{reviewPhoto2}, #{reviewPhoto3}, #{reviewPhoto4},#{reviewPhoto5},#{reviewDate})
 	   </insert>
+	   
+	   <!-- ...2...插入 -->
+	    <insert id="insertGoodsReview">
+		insert into review
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="reviewId != null">
+				review_id,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="goodsId != null">
+				goods_id,
+			</if>
+			<if test="nickName != null">
+				nick_name,
+			</if>
+			<if test="rating != null">
+				rating,
+			</if>
+			<if test="title != null">
+				review_title,
+			</if>
+			<if test="content != null">
+				review_content,
+			</if>
+			<if test="photo1 != null">
+				review_photo1,
+			</if>
+			<if test="photo2 != null">
+				review_photo2,
+			</if>
+			<if test="photo3 != null">
+				review_photo3,
+			</if>
+			<if test="photo4 != null">
+				review_photo4,
+			</if>
+			<if test="photo5 != null">
+				review_photo5,
+			</if>
+			<if test="reviewDate != null">
+				review_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="reviewId != null">
+				#{reviewId},
+			</if>
+			<if test="orderId != null">
+				#{orderId},
+			</if>
+			<if test="goodsId != null">
+				#{goodsId},
+			</if>
+			<if test="nickName != null">
+				#{nickName},
+			</if>
+			<if test="rating != null">
+				#{rating},
+			</if>
+			<if test="title != null">
+				#{reviewTitle},
+			</if>
+			<if test="content != null">
+				#{reviewContent},
+			</if>
+			<if test="photo1 != null">
+				#{reviewPhoto1},
+			</if>
+			<if test="photo2 != null">
+				#{reviewPhoto2},
+			</if>
+			<if test="photo3 != null">
+				#{reviewPhoto3},
+			</if>
+			<if test="photo4 != null">
+				#{reviewPhoto4},
+			</if>
+			<if test="photo5 != null">
+				#{reviewPhoto5},
+			</if>
+			<if test="reviewDate != null">
+				#{reviewDate},
+			</if>
+		</trim>
+	</insert>
                 
        <select id="selectMaxReviewId" resultType="long">
 		select max(review_id)
 		from review
 	</select>
 	
+	<!-- 综合评价和总评分人数(4.1和405) -->
 	<select id = "countRatingButNoReview"
        resultType = "ltd.newbee.mall.newbeemall.entity.GoodsReview">
        select count(*) as review_count, avg (rating) as rating_avg
        from review
        where proved = 1 and goods_id = #{goodsId}
        </select>
-       
+    
+    <!-- 评分且评论的人数(396) -->   
        <select id = "countReviewAndRating"
-       resultType = "ltd.newbee.mall.newbeemall.entity.GoodsReview">
-       select count(review_title) as title_count ,rating 
+       resultType = "int">
+       select count(review_content) as title_count 
        from review
        where proved = 1 and goods_id = #{goodsId} 
        and review_content is not null
        </select>
-       
-       <select id = "countReviewRating"
-       resultType = "int">
-       select count(rating) as count
+ 
+     
+    <!-- ...1...取每个rating的数量(223) -->  
+       <select id = "countReviewRating1"
+       resultType = "ltd.newbee.mall.newbeemall.entity.GoodsReview">
+       select count(rating) as count, rating
        from review
-       where goods_id = #{goodsId} and rating = #{rating};
+       where goods_id = #{goodsId} and proved = 1;
        </select>
        
+       
+     <!-- 是否能点赞reviewlike -->
+       <select id = "findReviewLikeOrNot"
+       resultType = "int">
+       select count(*) 
+       from review_like
+       where user_id = #{userId} and review_id = #{reviewId}
+       </select>
+       
+     <!-- 插入点赞reviewlike -->  
+       <insert id = "insertReviewLike">
+       insert into review_like
+       (review_id,user_id,like_date)
+       values
+       (#{reviewId},#{userId},#{likeDate})
+       </insert>
         
          </mapper>
