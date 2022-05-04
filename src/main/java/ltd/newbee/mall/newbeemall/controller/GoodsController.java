@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ltd.newbee.mall.newbeemall.entity.GoodsQA;
 import ltd.newbee.mall.newbeemall.entity.GoodsReview;
 import ltd.newbee.mall.newbeemall.service.GoodsInfoService;
 import ltd.newbee.mall.newbeemall.service.GoodsQAService;
@@ -51,6 +52,38 @@ public class GoodsController {
     
 	}
 	
+	@PostMapping("/GoodsQA/insert")
+    @ResponseBody
+    
+    public Result insertGoodsQA(@RequestBody HashMap<String,Object> mapQuestion) {
+		
+		
+		return ResultGenerator.genSuccessResult(goodsQAService.insertGoodsReview(mapQuestion));
+    
+	}
+	
+	@PostMapping("/GoodsReview/insertQaLike")
+    @ResponseBody
+    public Result insertQaLike(@RequestBody HashMap<String, Object> mapQALike) {
+		//object转成String
+		String userId1 = mapQALike.get("userId").toString();
+		String anwserId1 = mapQALike.get("anwserId").toString();
+		
+		long anwserId = Long.parseLong(anwserId1);
+		long userId = Long.parseLong(userId1);
+		
+		//如果count是1不可插入如果count是0可以插入
+		int count = goodsQAService.insertGoodsQALikeOrNot(userId, anwserId);
+		
+		if (count != 0) {
+			return ResultGenerator.genFailResult("Failed!!");
+		}else
+		return ResultGenerator.genSuccessResult(goodsQAService.insertGoodsQALike(mapQALike)); 
+    }
+	
+	//------------------------------------------------------------------------------------------------------
+	
+	
 	@GetMapping("/GoodsReview")
     @ResponseBody
     public Result getGoodsReview(int rating,long start,long number,long goodsId) {
@@ -76,11 +109,39 @@ public class GoodsController {
 		
 		List<GoodsReview>entityList = goodsReviewService.findReviewWrittenByGoodsId(goodsId,userId);
 		
-		if (entityList.size()== 0) {
+		if (entityList !=null && entityList.size()== 0) {
 			return ResultGenerator.genFailResult("Failed!!");
 		}else
 		return ResultGenerator.genSuccessResult(goodsReviewService.insertGoodsReview(mapReview)); 
     }
+	
+	@GetMapping("/GoodsReview/countReview")
+    @ResponseBody
+    public Result countReview(long goodsId) {
+		return ResultGenerator.genSuccessResult(goodsReviewService.getReviewButNoReview(goodsId)); 
+		
+	}
+	
+	@PostMapping("/GoodsReview/insertReviewLike")
+    @ResponseBody
+    public Result insertReviewLike(@RequestBody HashMap<String, Object> mapReviewLike) {
+		//object转成String
+		String userId1 = mapReviewLike.get("userId").toString();
+		String anwserId1 = mapReviewLike.get("goodsId").toString();
+		
+		long goodsId = Long.parseLong(anwserId1);
+		long userId = Long.parseLong(userId1);
+		
+		//如果count是1不可插入如果count是0可以插入
+		int count = goodsQAService.insertGoodsQALikeOrNot(userId, userId);
+		
+		if (count != 0) {
+			return ResultGenerator.genFailResult("Failed!!");
+		}else
+		return ResultGenerator.genSuccessResult(goodsReviewService.insertGoodsReview(mapReviewLike)); 
+    }
+	
+    
 	
 	
 }

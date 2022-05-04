@@ -8,6 +8,7 @@ import ltd.newbee.mall.newbeemall.vo.GoodsReviewAvgVO;
 import ltd.newbee.mall.newbeemall.vo.GoodsReviewVO;
 
 public interface GoodsReviewService {
+	
 	List<GoodsReviewVO> getGoodsReview(int rating, long start, long number, long goodsId);
 	
 //	int insertGoodsReview(List<GoodsReview> list);
@@ -20,8 +21,15 @@ public interface GoodsReviewService {
 
 	
 //	---------------------------------------------------------------------------------------
-    List<GoodsReviewAvgVO> getReviewButNoReview(long goodsId);
-	
-	int countReviewRating(long goodsId);
+    GoodsReviewAvgVO getReviewButNoReview(long goodsId);
+//	
+//	int countReviewRating(long goodsId);
+    
+  //-------------------------------------------------------------------------------
+  	//是否能点赞reviewLike
+    int findReviewLikeOrNot(long reviewId, long userId);
+	 
+	 int insertReviewLike(Map<String,Object> reviewLike);
+  	
 	
 }

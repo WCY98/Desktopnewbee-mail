@@ -1,7 +1,10 @@
 package ltd.newbee.mall.newbeemall.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -51,6 +54,31 @@ public class GoodsQAServiceImpl implements GoodsQAService{
 		return voList;
 	
 	}
+
+	@Override
+	public int insertGoodsQALikeOrNot(long userId, long anwserId) {
+		// TODO Auto-generated method stub
+		return goodsQAMapper.insertGoodsQALikeOrNot(userId, anwserId);
+	}
+
+	@Override
+	public int insertGoodsQALike(Map<String, Object> qaLike) {
+		// TODO Auto-generated method stub
+		qaLike.replace("likeDate", new Date());
+		return goodsQAMapper.insertGoodsQALike(qaLike);
+	}
+
+	@Override
+	public int insertGoodsReview(HashMap<String, Object> mapQuestion) {
+		// TODO Auto-generated method stub
+			long newQuestionId=goodsQAMapper.selectMaxQuestionId()+1;
+			mapQuestion.replace("questionId", newQuestionId);
+			mapQuestion.replace("questionDate", new Date());
+			return goodsQAMapper.insertGoodsQuestion(mapQuestion);
+
+	}
+
+	
 
 }
 
