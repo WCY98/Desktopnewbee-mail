@@ -8,9 +8,10 @@ import ltd.newbee.mall.newbeemall.vo.GoodsQAFirstVO;
 
 public interface GoodsQAService {
 	
-	List<GoodsQAFirstVO> getGoodsQA(int startOffsetIndex, int pageLimitNumber,long goodsId,String orderByCol);
+	List<GoodsQAFirstVO> getGoodsQA(int pageNo, int pageLimitNumber,long goodsId,String orderByCol);
 
-	int insertGoodsReview(HashMap<String, Object> mapQuestion);
+	int selectMaxQuestionId(HashMap<String, Object> mapQuestion);
+	
 	
 	
 	//确认是否能插入以及插入qalike

@@ -24,11 +24,10 @@ public interface GoodsReviewMapper {
 	
 	
 	//----------------------------------------------------------------------
-	List<GoodsReview> countRatingButNoReview(long goodsId);
+	GoodsReview countRatingButNoReview(long goodsId);
 	
 	List<GoodsReview> countReviewRating(long goodsId);
 	
-	int countReviewAndRating(long goodsId);
 	
 //-------------------------------------------------------------------------------
 	//是否能点赞reviewLike

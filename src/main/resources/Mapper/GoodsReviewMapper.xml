@@ -16,6 +16,7 @@
          where item.goods_id = #{goodsId} and proved = 1 and rating = #{rating}
          group by re.review_id
          order by rating DESC,count desc
+         limit #{start}, #{number}
          </select>
         
         <select id="findReviewWrittenByGoodsId"
@@ -33,17 +34,6 @@
 		order by orr.create_time;
 	</select>
         
-        <!-- ...1...插入 -->
-        <insert id="insertGoodsReview" parameterType="map">
-		insert into review (review_id,order_id,goods_id,nick_name,
-		rating,review_title,review_content,review_photo1,review_photo2,
-		review_photo3,review_photo4,review_photo5,review_date)
-		values
-			(#{reviewId}, #{orderId}, #{goodsId}, #{nickName}
-			, #{rating}, #{reviewTitle}, #{reviewContent}, #{reviewPhoto1}
-			, #{reviewPhoto2}, #{reviewPhoto3}, #{reviewPhoto4},#{reviewPhoto5},#{reviewDate})
-	   </insert>
-	   
 	   <!-- ...2...插入 -->
 	    <insert id="insertGoodsReview">
 		insert into review
@@ -136,30 +126,27 @@
 		from review
 	</select>
 	
-	<!-- 综合评价和总评分人数(4.1和405) -->
+	<!-- 综合评价和总评分人数(4.1和405和396) -->
 	<select id = "countRatingButNoReview"
        resultType = "ltd.newbee.mall.newbeemall.entity.GoodsReview">
-       select count(*) as review_count, avg (rating) as rating_avg
+       select count(*) as review_count, avg (rating) as rating_avg, count(review_content) as title_count 
        from review
        where proved = 1 and goods_id = #{goodsId}
        </select>
-    
-    <!-- 评分且评论的人数(396) -->   
-       <select id = "countReviewAndRating"
-       resultType = "int">
-       select count(review_content) as title_count 
-       from review
-       where proved = 1 and goods_id = #{goodsId} 
-       and review_content is not null
-       </select>
  
      
-    <!-- ...1...取每个rating的数量(223) -->  
-       <select id = "countReviewRating1"
+    <!-- 取每个rating的数量(223) -->  
+       <select id = "countReviewRating"
        resultType = "ltd.newbee.mall.newbeemall.entity.GoodsReview">
-       select count(rating) as count, rating
-       from review
-       where goods_id = #{goodsId} and proved = 1;
+       select 5 as rating , count(rating) as rating_count from review where rating = 5 and goods_id = #{goodsId}
+       union all
+       select 4 , count(rating) from review where rating = 4 and goods_id = #{goodsId}
+       union all
+       select 3 , count(rating) from review where rating = 3 and goods_id = #{goodsId}
+       union all
+       select 2 , count(rating) from review where rating = 2 and goods_id = #{goodsId}
+       union all
+       select 1 , count(rating) from review where rating = 1 and goods_id = #{goodsId}
        </select>
        
        

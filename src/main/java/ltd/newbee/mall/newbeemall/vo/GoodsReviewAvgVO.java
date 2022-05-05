@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class GoodsReviewAvgVO implements Serializable{
-	
+	//reviewId的件数
     private Integer reviewCount;
 	
 	public Integer getReviewCount() {

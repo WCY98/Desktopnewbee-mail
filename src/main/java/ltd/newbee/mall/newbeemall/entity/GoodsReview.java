@@ -213,6 +213,14 @@ public class GoodsReview {
 	
 	private Integer titleCount;
 	
-	
+	private Integer ratingCount;
+
+	public Integer getRatingCount() {
+		return ratingCount;
+	}
+
+	public void setRatingCount(Integer ratingCount) {
+		this.ratingCount = ratingCount;
+	}
 
 }

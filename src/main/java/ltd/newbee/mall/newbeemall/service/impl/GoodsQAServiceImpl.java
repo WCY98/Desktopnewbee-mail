@@ -24,11 +24,11 @@ public class GoodsQAServiceImpl implements GoodsQAService{
 	GoodsQAMapper goodsQAMapper;
 
 	@Override
-	public List<GoodsQAFirstVO> getGoodsQA(int startOffsetIndex, int pageLimitNumber,long goodsId,String orderByCol) {
+	public List<GoodsQAFirstVO> getGoodsQA(int pageNo, int pageLimitNumber,long goodsId,String orderByCol) {
 		
-		int start = ((startOffsetIndex-1)*pageLimitNumber);
+		int startOffsetIndex = ((pageNo-1)*pageLimitNumber);
 		//dao                                    
-		List<GoodsQA> entityList = goodsQAMapper.findGoodsQA(start,pageLimitNumber,goodsId,orderByCol);
+		List<GoodsQA> entityList = goodsQAMapper.findGoodsQA(startOffsetIndex, pageLimitNumber, goodsId, orderByCol);
 	
 		int totalCount = goodsQAMapper.findGoodsQANumAndPage(goodsId);
 		int currentPage = startOffsetIndex;
@@ -68,14 +68,15 @@ public class GoodsQAServiceImpl implements GoodsQAService{
 		return goodsQAMapper.insertGoodsQALike(qaLike);
 	}
 
-	@Override
-	public int insertGoodsReview(HashMap<String, Object> mapQuestion) {
-		// TODO Auto-generated method stub
-			long newQuestionId=goodsQAMapper.selectMaxQuestionId()+1;
-			mapQuestion.replace("questionId", newQuestionId);
-			mapQuestion.replace("questionDate", new Date());
-			return goodsQAMapper.insertGoodsQuestion(mapQuestion);
+	
 
+	@Override
+	public int selectMaxQuestionId(HashMap<String, Object> mapQuestion) {
+		long newQuestionId=goodsQAMapper.selectMaxQuestionId()+1;
+		mapQuestion.replace("questionId", newQuestionId);
+		mapQuestion.replace("questionDate", new Date());
+		return goodsQAMapper.insertGoodsQuestion(mapQuestion);
+		
 	}
 
 	

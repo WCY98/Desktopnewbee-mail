@@ -1,5 +1,6 @@
 package ltd.newbee.mall.newbeemall.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class GoodsReviewServiceImpl implements GoodsReviewService{
 	
 	@Override
 	public List<GoodsReviewVO> getGoodsReview(int rating,long start,long number,long goodsId) {
-		// TODO Auto-generated method stub
+		
 		List<GoodsReview> entityList = goodsReviewMapper.findReviewByGoodsId(rating, start, number, goodsId);
 		List<GoodsReviewVO> VoList = BeanUtil.copyList(entityList, GoodsReviewVO.class);
 
@@ -34,7 +35,7 @@ public class GoodsReviewServiceImpl implements GoodsReviewService{
 
 	@Override
 	public List<GoodsReview> findReviewWrittenByGoodsId(long goodsId, long userId) {
-		// TODO Auto-generated method stub
+		
 		
 		return goodsReviewMapper.findReviewWrittenByGoodsId(goodsId,userId);
 	}
@@ -50,21 +51,28 @@ public class GoodsReviewServiceImpl implements GoodsReviewService{
 
 	@Override
 	public GoodsReviewAvgVO getReviewButNoReview(long goodsId) {
-		// TODO Auto-generated method stub
-		List<GoodsReview> entityList1 = goodsReviewMapper.countRatingButNoReview(goodsId);
-		List<GoodsReview> entityList2 = goodsReviewMapper.countReviewRating(goodsId);
-		int countReviewAndRating = goodsReviewMapper.countReviewAndRating(goodsId);
+		GoodsReview entity1 = goodsReviewMapper.countRatingButNoReview(goodsId);
+		//计算星星的个数返回的只有一个数据所以不用list
+		List<GoodsReview> entityList = goodsReviewMapper.countReviewRating(goodsId);
 		
 //		List<GoodsReviewAvgVO> voList = new ArrayList<GoodsReviewAvgVO>();
 		
 		GoodsReviewAvgVO vo = new GoodsReviewAvgVO();
-		for (GoodsReview entity1 : entityList1) {
-			BeanUtil.copyProperties(entity1, vo);
-		}
+		BeanUtil.copyProperties(entity1, vo);
+		//(61)=(63-65)
+//		vo.setRatingAvg(entity1.getRatingAvg());
+//		vo.setReviewCount(entity1.getReviewCount());
+//		vo.setTitleCount(entity1.getTitleCount());
+		
 
-		List<GoodsReviewAvgSecondVO> voList2 = BeanUtil.copyList(entityList2,GoodsReviewAvgSecondVO.class);
-		vo.setGoodsReviewAvgSecondVOS(voList2);
+//		List<GoodsReviewAvgSecondVO> voList2 = BeanUtil.copyList(entity,GoodsReviewAvgSecondVO.class);
+//		vo.setGoodsReviewAvgSecondVOS(voList2);
 //		voList.add(vo);
+		List<GoodsReviewAvgSecondVO> voList = BeanUtil.copyList(entityList,GoodsReviewAvgSecondVO.class);
+		                                                      //entityList名，VO名.class
+		
+		vo.setGoodsReviewAvgSecondVOS(voList);
+		
 		return vo;
 		
 //		return voList;

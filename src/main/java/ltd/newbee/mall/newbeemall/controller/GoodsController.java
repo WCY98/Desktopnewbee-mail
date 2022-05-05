@@ -45,10 +45,10 @@ public class GoodsController {
 	@GetMapping("/GoodsQA")
     @ResponseBody
     
-    public Result getGoodsQA(int startOffsetIndex, int pageLimitNumber, long goodsId,String orderByCol) {
+    public Result getGoodsQA(int pageNo, int pageLimitNumber, long goodsId,String orderByCol) {
 		
 		
-		return ResultGenerator.genSuccessResult(goodsQAService.getGoodsQA(startOffsetIndex,pageLimitNumber,goodsId,orderByCol));
+		return ResultGenerator.genSuccessResult(goodsQAService.getGoodsQA(pageNo,pageLimitNumber,goodsId,orderByCol));
     
 	}
 	
@@ -58,28 +58,42 @@ public class GoodsController {
     public Result insertGoodsQA(@RequestBody HashMap<String,Object> mapQuestion) {
 		
 		
-		return ResultGenerator.genSuccessResult(goodsQAService.insertGoodsReview(mapQuestion));
+		return ResultGenerator.genSuccessResult(goodsQAService.selectMaxQuestionId(mapQuestion));
     
 	}
 	
-	@PostMapping("/GoodsReview/insertQaLike")
+	@PostMapping("/GoodsQA/insertQaLike")
     @ResponseBody
     public Result insertQaLike(@RequestBody HashMap<String, Object> mapQALike) {
 		//object转成String
 		String userId1 = mapQALike.get("userId").toString();
-		String anwserId1 = mapQALike.get("anwserId").toString();
+		String answerId1 = mapQALike.get("answerId").toString();
 		
-		long anwserId = Long.parseLong(anwserId1);
+		long answerId = Long.parseLong(answerId1);
 		long userId = Long.parseLong(userId1);
 		
 		//如果count是1不可插入如果count是0可以插入
-		int count = goodsQAService.insertGoodsQALikeOrNot(userId, anwserId);
+		int checkCount = goodsQAService.insertGoodsQALikeOrNot(userId, answerId);
 		
-		if (count != 0) {
+//		if (count != 0) {
+//		return ResultGenerator.genFailResult("Failed!!");
+//	}else
+//	return ResultGenerator.genSuccessResult(goodsReviewService.insertGoodsReview(mapReviewLike)); 
+//}
+		//先判断这一条点赞的数据存不存在
+	if (checkCount == 0) {
+		int insertCount = goodsQAService.insertGoodsQALike(mapQALike);
+		//判断插入成不成功
+		if(insertCount > 0 ) {
+			return ResultGenerator.genSuccessResult("Succeed!!"); 
+		}else {
 			return ResultGenerator.genFailResult("Failed!!");
-		}else
-		return ResultGenerator.genSuccessResult(goodsQAService.insertGoodsQALike(mapQALike)); 
-    }
+		}
+	}else {
+		return ResultGenerator.genFailResult("Failed!");
+	}
+			
+		}
 	
 	//------------------------------------------------------------------------------------------------------
 	
@@ -115,6 +129,7 @@ public class GoodsController {
 		return ResultGenerator.genSuccessResult(goodsReviewService.insertGoodsReview(mapReview)); 
     }
 	
+	//显示平均分
 	@GetMapping("/GoodsReview/countReview")
     @ResponseBody
     public Result countReview(long goodsId) {
@@ -127,19 +142,31 @@ public class GoodsController {
     public Result insertReviewLike(@RequestBody HashMap<String, Object> mapReviewLike) {
 		//object转成String
 		String userId1 = mapReviewLike.get("userId").toString();
-		String anwserId1 = mapReviewLike.get("goodsId").toString();
+		String reviewId1 = mapReviewLike.get("reviewId").toString();
 		
-		long goodsId = Long.parseLong(anwserId1);
+		long reviewId = Long.parseLong(reviewId1);
 		long userId = Long.parseLong(userId1);
 		
 		//如果count是1不可插入如果count是0可以插入
-		int count = goodsQAService.insertGoodsQALikeOrNot(userId, userId);
+		int checkCount = goodsReviewService.findReviewLikeOrNot(reviewId, userId);
 		
-		if (count != 0) {
-			return ResultGenerator.genFailResult("Failed!!");
-		}else
-		return ResultGenerator.genSuccessResult(goodsReviewService.insertGoodsReview(mapReviewLike)); 
-    }
+//		if (count != 0) {
+//			return ResultGenerator.genFailResult("Failed!!");
+//		}else
+//		return ResultGenerator.genSuccessResult(goodsReviewService.insertGoodsReview(mapReviewLike)); 
+//    }
+		if (checkCount == 0) {
+			int insertCount = goodsReviewService.insertReviewLike(mapReviewLike);
+			if(insertCount > 0 ) {
+				return ResultGenerator.genSuccessResult("Succeed"); 
+			}else {
+				return ResultGenerator.genFailResult("Failed!!");
+			}
+		}else {
+			return ResultGenerator.genFailResult("Failed!");
+				
+			}
+		}
 	
     
 	
