@@ -18,7 +18,7 @@
          limit #{startOffsetIndex} ,#{pageLimitNumber}
          </select>
          
- 
+
      <select id="findGoodsQANumAndPage" parameterType = "long"
 		resultType="int">
          select count(*) 
